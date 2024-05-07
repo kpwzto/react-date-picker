@@ -166,6 +166,11 @@ export default function Input({
     (value === '0' || !value.toString().startsWith('0'));
   const maxLength = max ? max.toString().length : null;
 
+  const handleChange = (event) => {
+    event.target.value = e.target.value.replace(/\D/g,'');
+    onChange(event);
+  };
+
   return (
     <>
       {hasLeadingZero ? <span className={`${className}__leadingZero`}>0</span> : null}
@@ -184,7 +189,7 @@ export default function Input({
         max={max}
         min={min}
         name={name}
-        onChange={onChange}
+        onChange={handleChange}
         onFocus={onFocus}
         onKeyDown={onKeyDown}
         onKeyPress={makeOnKeyPress(maxLength)}
@@ -200,7 +205,7 @@ export default function Input({
         ref={inputRef as React.RefObject<HTMLInputElement>}
         required={required}
         step={step}
-        type="number"
+        type="text"
         value={value !== null ? value : ''}
       />
     </>
